@@ -45,6 +45,6 @@ class User extends Authenticatable
 
     public function businessUnits(): HasMany
     {
-        return $this->hasMany(BusinessUnit::class, 'id');
+        return $this->hasMany(BusinessUnit::class, 'busid');
     }
 }

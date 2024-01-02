@@ -32,6 +32,7 @@
                                     <th>Description</th>
                                     <th>Status</th>
                                     <th>Created At</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>

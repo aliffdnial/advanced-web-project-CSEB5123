@@ -34,5 +34,6 @@ Route::group(['prefix' => '/app', 'as' => 'app.', 'middleware' => ['auth']], fun
     
     Route::group(['prefix' => '/itms', 'as' => 'itms.', 'middleware' => ['checkAdmin']], function () {
         Route::get('/dashboard', [App\Http\Controllers\ITMS\DashboardController::class,"dashboard"])->name('dashboard');
+        Route::get('project', ProjectController::class,"project"])->name('project');
     });
 });
