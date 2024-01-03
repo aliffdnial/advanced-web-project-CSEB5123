@@ -30,12 +30,8 @@
                 <div class="form-group">
                     <label for="owner">Owner <span style="color: red">*</span></label>
                     <select class="form-control" name="userid">
-                        @foreach($bu as $b)
                         @foreach($user as $u)
-                            @if($u->usertype == 1)
-                            <option value="{{ $u->id }}">{{ $u->businessunit }}</option>
-                            @endif
-                        @endforeach
+                            <option value="{{ $u->userid }}">{{ $u->bunit }}</option>
                         @endforeach
                     </select>
                     @error('userid')
@@ -46,12 +42,14 @@
                 </div>
                 <div class="form-group">
                     <label for="pic">Person in-charge <span style="color: red">*</span></label>
-                    <select class="form-control" name="buid">
+                    <select class="form-control" name="bunitid">
                         @foreach($bu as $b)
-                        <option value="{{ $b->id }}">{{ $b->name }}</option>
+                        @foreach($user as $u)
+                        <option value="{{ $b->bunitid }}">{{ $b->name }} - {{ $u->bunit }} - {{ $b->request }} - {{ $b->description }} </option>
+                        @endforeach
                         @endforeach
                     </select>
-                    @error('buid')
+                    @error('bunitid')
                     <span class="text-danger">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -90,16 +88,12 @@
                 </div>
                 <div class="form-group">
                     <label for="leaddev">Lead Developer <span style="color: red">*</span></label>
-                    <select class="form-control" name="leaddev">
-                         @foreach($bu as $b) <!-- Business Unit -->
-                        @foreach($user as $u) <!-- User -->
-                            @if($u->usertype == 2)
-                                <option value="{{ $u->id }}">{{ $u->name }}</option>
-                            @endif
-                        @endforeach
+                    <select class="form-control" name="userid">
+                        @foreach($dev as $d)
+                            <option value="{{ $d->userid }}">{{ $d->name }}</option>
                         @endforeach
                     </select>
-                    @error('leaddev')
+                    @error('userid')
                     <span class="text-danger">
                         <strong>{{ $message }}</strong>
                     </span>

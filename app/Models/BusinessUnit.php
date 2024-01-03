@@ -26,6 +26,6 @@ class BusinessUnit extends Model
 
     public function project(): HasMany
     {
-        return $this->hasMany(Project::class, 'proid');
+        return $this->hasMany(Project::class, 'bunitid');
     }
 }

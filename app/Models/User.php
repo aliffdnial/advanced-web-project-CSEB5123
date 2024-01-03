@@ -47,11 +47,11 @@ class User extends Authenticatable
 
     public function bunit(): HasMany
     {
-        return $this->hasMany(BusinessUnit::class, 'bunitid');
+        return $this->hasMany(BusinessUnit::class, 'userid');
     }
 
     public function project(): HasMany
     {
-        return $this->hasMany(Project::class, 'proid');
+        return $this->hasMany(Project::class, 'userid');
     }
 }

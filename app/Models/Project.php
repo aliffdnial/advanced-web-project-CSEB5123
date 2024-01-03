@@ -14,9 +14,9 @@ class Project extends Model
 
     protected $table = 'projects';
     protected $primaryKey = 'proid';
-    protected $fillable = ['userid','busid','start_date','end_date','status','leaddev'];
+    protected $fillable = ['userid','bunitid','start_date','end_date','status','leaddev'];
 
-    public function bunit():BelongsTo
+    public function businessUnit():BelongsTo
     {
         return $this->belongsTo(BusinessUnit::class,'bunitid');
     }

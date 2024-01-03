@@ -19,13 +19,14 @@ class ProjectController extends Controller
         // $user = Auth::user();
         $user = User::all();
         $projects = Project::all();
+        $dev = User::where('usertype', 2)->get();
         // $bus = BusinessUnit::all();
         // $projects = Project::where('userid', $user->id)->get();
         // $bus = BusinessUnit::where('userid', $user->id)->get();
         // dd($bus);
 
         // return view("itms.project_index", compact('projects','bus','user'));
-        return view("itms.project_index", compact('projects','user'));
+        return view("itms.project_index", compact('projects','user','dev'));
     }
 
     /**
@@ -35,9 +36,12 @@ class ProjectController extends Controller
     {
         $project = new Project();
         $bu = BusinessUnit::all();
-        $user = User::all();
+        $user = User::where('usertype', 1)->get();
+        $dev = User::where('usertype', 2)->get();
+        // $user = User::all();
         
-        return view('itms.project_form', compact('project','bu','user'));
+        return view('itms.project_form', compact('project','bu','user','dev'));
+        // return view('itms.project_form', compact('project','bu'));
     }
 
     /**
@@ -46,8 +50,8 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'userid'=> 'required|exists:business_unit,userid',
-            'buid'=> 'required|exists:users,id',
+            // 'userid'=> 'required|exists:bunits,userid',
+            // 'bunitid'=> 'required|exists:users,bunitid',
             'start_date' => 'nullable',
             'end_date' => 'nullable',
             'status' => 'nullable',
@@ -59,7 +63,7 @@ class ProjectController extends Controller
         $project->fill($request->all());
         $project->duration = $duration;
         // $project->buid = $request['buid']; //DARI TABLE BUSINESS UNIT
-        $project->buid = $request->buid ?? auth()->user()->id;
+        $project->bunitid = $request['bunitid'];
         $project->userid = $request['userid']; //DARI TABLE USERS
         // dd($project);
         $project->save();

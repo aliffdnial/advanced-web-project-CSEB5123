@@ -40,12 +40,14 @@
                                 @foreach($projects as $pro)
                                 <tr>
                                     <td>{{ $i++ }}</td>
-                                    <td>{{ $pro->user->businessunit }}</td>
-                                    <td>{{ $pro->bunit->businessunit }}</td>
+                                    <td>{{ $pro->user->bunit }}</td>
+                                    <td>{{ $pro->businessUnit->name }}</td>
                                     <td>{{ date('d-m-Y', strtotime($pro->start_date)) }}</td>
                                     <td>{{ date('d-m-Y', strtotime($pro->end_date)) }}</td>
                                     <td>{{ $pro->duration }}</td>
-                                    <td></td>
+                                    <td>@foreach($dev as $d)
+                                        {{ $d->name }}
+                                        @endforeach</td>
                                     <td></td>
                                     <td>
                                         @if($pro->status == 0)
