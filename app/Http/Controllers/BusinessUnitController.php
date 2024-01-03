@@ -16,7 +16,7 @@ class BusinessUnitController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $bus = BusinessUnit::where('userid', $user->id)->get();
+        $bus = BusinessUnit::where('userid', $user->userid)->get();
         // $bus = BusinessUnit::all();
         return view('bu.application_index', compact('bus'));
     }
@@ -43,11 +43,10 @@ class BusinessUnitController extends Controller
 
         $bu = new BusinessUnit();
         $bu->fill($request->all());
-        $bu->userid = Auth::user()->id;
+        $bu->userid = Auth::user()->userid;
         // $bu->busID = $request->busID ?? auth()->user()->id;
         // $bu->userid = $request->userid ?? auth()->user()->id;
         $bu->request = $request['request'] ? json_encode($request['request']) : json_encode([]);
-
         $bu->save();
 
         return redirect()->route('app.bu.index');

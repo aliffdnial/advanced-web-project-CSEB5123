@@ -15,13 +15,15 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
+    protected $table = 'users';
+    protected $primaryKey = 'userid';
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name','phonenum','businessunit','email','password',
+        'name','phonenum','bunit','email','password',
     ];
 
     /**
@@ -43,13 +45,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function businessunit(): HasMany
+    public function bunit(): HasMany
     {
-        return $this->hasMany(BusinessUnit::class, 'id');
+        return $this->hasMany(BusinessUnit::class, 'bunitid');
     }
 
     public function project(): HasMany
     {
-        return $this->hasMany(Project::class, 'id');
+        return $this->hasMany(Project::class, 'proid');
     }
 }

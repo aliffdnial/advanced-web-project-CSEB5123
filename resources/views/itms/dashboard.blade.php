@@ -46,10 +46,10 @@
                                 @foreach($busunit as $bu)
                                 <tr>
                                     <td>{{ $i++ }}</td>
-                                    <td>{{ $bu->user->businessunit }}</td>
-                                    <td class="font-weight-bold">{{ $bu->requesttype }}</td>
+                                    <td>{{ $bu->user->bunit }}</td>
+                                    <td class="font-weight-bold">{{ $bu->request }}</td>
                                     
-                                    <td>{{ $bu->picname }}</td>
+                                    <td>{{ $bu->name }}</td>
                                     <td>{{ $bu->description }}</td>
                                     <td>
                                         @if($bu->status == 0)

@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('projects', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('buid')->unique();
-            $table->bigInteger('userid')->unique(); //OWNER == BUSINESS UNIT
+            $table->id('proid');
+            $table->bigInteger('bunitid');
+            $table->bigInteger('userid');
             // $table->bigInteger('devid'); //DEVELOPER
             // $table->bigInteger('sysid')->unique(); //SYSTEM DEVELOPMENT INFORMATION
             // $table->string('owner');

@@ -30,9 +30,9 @@
         @enderror
     </div>
     <div class="row mb-3">
-        <label for="businessunit" class="col-md-4 col-form-label text-md-end">{{ __('Business Unit') }}</label>
+        <label for="bunit" class="col-md-4 col-form-label text-md-end">{{ __('Business Unit') }}</label>
         
-        <select class="form-control" name="businessunit">
+        <select class="form-control" name="bunit">
             <option value="">-- Please Select --</option>
             <option value="ITMS">ITMS</option>
             <option value="CCI">CCI</option>
@@ -40,7 +40,7 @@
             <option value="COBA">COBA</option>
             <option value="COGS">COGS</option>
         </select>
-        @error('businessunit')
+        @error('bunit')
         <span class="text-danger">
             <strong>{{ $message }}</strong>
         </span>

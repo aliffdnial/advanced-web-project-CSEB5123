@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('business_unit', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('userid')->unique(); //BU01-CCI,BU02-COE,BU03-COBA,BU04-COGS
+        Schema::create('bunits', function (Blueprint $table) {
+            $table->id('bunitid');
+            // $table->bigInteger('userid')->unique(); //BU01-CCI,BU02-COE,BU03-COBA,BU04-COGS
+            $table->bigInteger('userid'); //BU01-CCI,BU02-COE,BU03-COBA,BU04-COGS
             $table->string('request')->nullable();
             $table->string('name')->nullable();
             $table->text('description')->nullable();
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('business_unit');
+        Schema::dropIfExists('bunits');
     }
 };

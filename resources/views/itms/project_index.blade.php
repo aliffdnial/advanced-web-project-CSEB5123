@@ -41,7 +41,7 @@
                                 <tr>
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $pro->user->businessunit }}</td>
-                                    <td></td>
+                                    <td>{{ $pro->bunit->businessunit }}</td>
                                     <td>{{ date('d-m-Y', strtotime($pro->start_date)) }}</td>
                                     <td>{{ date('d-m-Y', strtotime($pro->end_date)) }}</td>
                                     <td>{{ $pro->duration }}</td>

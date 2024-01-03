@@ -12,15 +12,17 @@ class Project extends Model
 {
     use HasFactory,SoftDeletes;
 
+    protected $table = 'projects';
+    protected $primaryKey = 'proid';
     protected $fillable = ['userid','busid','start_date','end_date','status','leaddev'];
 
-    public function businessunit():BelongsTo
+    public function bunit():BelongsTo
     {
-        return $this->belongsTo(BusinessUnit::class,'id');
+        return $this->belongsTo(BusinessUnit::class,'bunitid');
     }
 
     public function user():BelongsTo
     {
-        return $this->belongsTo(User::class,'id');
+        return $this->belongsTo(User::class,'userid');
     }
 }

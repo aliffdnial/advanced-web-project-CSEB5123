@@ -19,8 +19,8 @@
     <div class="col-12 grid-margin stretch-card"><div class="card">
         <div class="card-body">
             <h4 class="card-title">Application form</h4>
-            @if($bu->id)<!-- TO CHECK id ALREADY EXIST OR NOT -->
-            <form action="{{ route('app.bu.update', $bu->id) }}" method="post">
+            @if($bu->bunitid)<!-- TO CHECK id ALREADY EXIST OR NOT -->
+            <form action="{{ route('app.bu.update', $bu->bunitid) }}" method="post">
                 <input type="hidden" name="_method" value="PUT">
             @else
                 <form action="{{ route('app.bu.store') }}" method="post">
@@ -40,8 +40,8 @@
                     <label for="request">Request Type <span style="color: red">*</span></label>
                     <select class="form-control" name="request">
                         <option value="">-- Please Select --</option>
-                        <option value="newsystem">New System</option>
-                        <option value="enhancement">Enhancement On Existing System</option>
+                        <option value="newsystem" @if(old('request') == "newsystem") selected @endif)>New System</option>
+                        <option value="enhancement" @if(old('request') == "enhancement") selected @endif)>Enhancement On Existing System</option>
                     </select>
                     @error('request')
                     <span class="text-danger">

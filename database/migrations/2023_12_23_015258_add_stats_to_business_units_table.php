@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('business_unit', function (Blueprint $table) {
+        Schema::table('bunits', function (Blueprint $table) {
             $table->string('status')->default(0);
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('business_unit', function (Blueprint $table) {
+        Schema::table('bunits', function (Blueprint $table) {
             $table->dropColumn('status');
         });
     }

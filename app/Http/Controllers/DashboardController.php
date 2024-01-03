@@ -15,7 +15,7 @@ class DashboardController extends Controller
             return redirect()->route('app.itms.dashboard');
         }else {
             $user = Auth::user();
-            $busunit = BusinessUnit::where('id', $user->id)->get();
+            $busunit = BusinessUnit::where('bunitid', $user->userid)->get();
 
             return view("bu.dashboard", compact('busunit'));
         }

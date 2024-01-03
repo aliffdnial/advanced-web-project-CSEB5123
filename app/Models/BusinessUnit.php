@@ -12,8 +12,8 @@ class BusinessUnit extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $table = 'business_unit';
-    // protected $primaryKey = 'id';
+    protected $table = 'bunits';
+    protected $primaryKey = 'bunitid';
 
     protected $fillable = [
         'userid','name','request','description',
@@ -21,11 +21,11 @@ class BusinessUnit extends Model
 
     public function user():BelongsTo
     {
-        return $this->belongsTo(User::class,'id');
+        return $this->belongsTo(User::class,'userid');
     }
 
     public function project(): HasMany
     {
-        return $this->hasMany(Project::class, 'id');
+        return $this->hasMany(Project::class, 'proid');
     }
 }
