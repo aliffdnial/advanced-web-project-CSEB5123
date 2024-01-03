@@ -35,8 +35,8 @@
                         <tr>
                             <td>{{ $i++ }}</td>
                             <td>{{ date('d-m-Y', strtotime($bu->created_at)) }}</td>
-                            <td>{{ $bu->picname }}</td>
-                            <td>{{ $bu->requesttype }}</td>
+                            <td>{{ $bu->name }}</td>
+                            <td>{{ $bu->request }}</td>
                             <td>{{ $bu->description }}</td>
                             <td>
                             @if($bu->status == 0)
@@ -49,15 +49,15 @@
                             </td>
                             <td>
                             @if($bu->status == 1 || $bu->status == 2) <!-- Status Solved, Rejected -->
-                            <a href="{{ route('app.bu.edit', $bu->busID) }}" class="btn btn-primary btn-sm disabled" role="button" aria-disabled="true">Edit</a>
-                            <form action="{{ route('app.bu.destroy', $bu->busID) }}" method="post">
+                            <a href="{{ route('app.bu.edit', $bu->id) }}" class="btn btn-primary btn-sm disabled" role="button" aria-disabled="true">Edit</a>
+                            <form action="{{ route('app.bu.destroy', $bu->id) }}" method="post">
                                 <input type="hidden" name="_method" value="DELETE">
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                             </form>
                             @else
-                            <a href="{{ route('app.bu.edit', $bu->busID) }}" class="btn btn-primary btn-sm">Edit</a>
-                            <form action="{{ route('app.bu.destroy', $bu->busID) }}" method="post">
+                            <a href="{{ route('app.bu.edit', $bu->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                            <form action="{{ route('app.bu.destroy', $bu->id) }}" method="post">
                                 <input type="hidden" name="_method" value="DELETE">
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\BusinessUnit;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,7 +16,7 @@ class BusinessUnitController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $bus = BusinessUnit::where('busID', $user->id)->get();
+        $bus = BusinessUnit::where('userid', $user->id)->get();
         // $bus = BusinessUnit::all();
         return view('bu.application_index', compact('bus'));
     }
@@ -35,15 +36,17 @@ class BusinessUnitController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'requesttype'=> 'required',
-            'picname'=> 'required|string|max:50',
+            'request'=> 'required',
+            'name'=> 'required|string|max:50',
             'description'=> 'required|string|max:255',
         ]);
 
         $bu = new BusinessUnit();
         $bu->fill($request->all());
-        $bu->busID = $request->busID ?? auth()->user()->id;
-        $bu->requesttype = $request['requesttype'] ? json_encode($request['requesttype']) : json_encode([]);
+        $bu->userid = Auth::user()->id;
+        // $bu->busID = $request->busID ?? auth()->user()->id;
+        // $bu->userid = $request->userid ?? auth()->user()->id;
+        $bu->request = $request['request'] ? json_encode($request['request']) : json_encode([]);
 
         $bu->save();
 
@@ -64,7 +67,7 @@ class BusinessUnitController extends Controller
     public function edit(BusinessUnit $bu)
     {
         //CHECK STATUS & OTHER ID
-        if($bu->status > 0 && Auth()->user()->busID){
+        if($bu->status > 0 && Auth()->user()->userid){
             abort(404);
         }
         else{

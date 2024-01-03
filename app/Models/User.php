@@ -43,8 +43,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function businessUnits(): HasMany
+    public function businessunit(): HasMany
     {
-        return $this->hasMany(BusinessUnit::class, 'busid');
+        return $this->hasMany(BusinessUnit::class, 'id');
+    }
+
+    public function project(): HasMany
+    {
+        return $this->hasMany(Project::class, 'id');
     }
 }

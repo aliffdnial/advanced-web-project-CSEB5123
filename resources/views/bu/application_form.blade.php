@@ -28,22 +28,22 @@
             @csrf
             <form class="forms">
                 <div class="form-group">
-                    <label for="picname">PIC Name<span style="color: red">*</span></label>
-                    <input type="text" class="form-control" name="picname" value="{{ old('picname', $bu->picname) }}">
-                    @error('picname')
+                    <label for="name">PIC Name<span style="color: red">*</span></label>
+                    <input type="text" class="form-control" name="name" value="{{ old('name', $bu->name) }}">
+                    @error('name')
                     <span class="text-danger">
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="requesttype">Request Type <span style="color: red">*</span></label>
-                    <select class="form-control" name="requesttype">
+                    <label for="request">Request Type <span style="color: red">*</span></label>
+                    <select class="form-control" name="request">
                         <option value="">-- Please Select --</option>
                         <option value="newsystem">New System</option>
                         <option value="enhancement">Enhancement On Existing System</option>
                     </select>
-                    @error('requesttype')
+                    @error('request')
                     <span class="text-danger">
                         <strong>{{ $message }}</strong>
                     </span>

@@ -5,12 +5,14 @@
             <span class="menu-title">Dashboard</span>
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="">
+    @can('isManager')
+     <li class="nav-item"><!-- APPLY USER LEVEL  -->
+        <a class="nav-link" href="{{ route('app.itms.project.index') }}">
             <i class="icon-grid menu-icon"></i>
             <span class="menu-title">Project</span>
         </a>
     </li>
+    @endcan
     <li class="nav-item">
         <a class="nav-link" href="">
             <i class="icon-head menu-icon"></i>
