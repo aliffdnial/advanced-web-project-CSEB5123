@@ -30,8 +30,10 @@
                 <div class="form-group">
                     <label for="owner">Owner <span style="color: red">*</span></label>
                     <select class="form-control" name="userid">
-                        @foreach($user as $u)
-                            <option value="{{ $u->userid }}">{{ $u->bunit }}</option>
+                        @foreach($users as $user)
+                            @if($user->usertype == 1)
+                                <option value="{{ $user->userid }}">{{ $user->bunit }}</option>
+                            @endif
                         @endforeach
                     </select>
                     @error('userid')
@@ -44,9 +46,7 @@
                     <label for="pic">Person in-charge <span style="color: red">*</span></label>
                     <select class="form-control" name="bunitid">
                         @foreach($bu as $b)
-                        @foreach($user as $u)
-                        <option value="{{ $b->bunitid }}">{{ $b->name }} - {{ $u->bunit }} - {{ $b->request }} - {{ $b->description }} </option>
-                        @endforeach
+                            <option value="{{ $b->bunitid }}">{{ $b->name }} - {{ $b->user->bunit }} - {{ $b->request }} - {{ $b->description }} </option>
                         @endforeach
                     </select>
                     @error('bunitid')
@@ -89,8 +89,12 @@
                 <div class="form-group">
                     <label for="leaddev">Lead Developer <span style="color: red">*</span></label>
                     <select class="form-control" name="userid">
-                        @foreach($dev as $d)
-                            <option value="{{ $d->userid }}">{{ $d->name }}</option>
+                        @foreach($users as $user)
+                            @if($user->usertype == 2)
+                            @if($user->status == 1)
+                                <option value="{{ $user->userid }}">{{ $user->name }}</option>
+                            @endif
+                            @endif
                         @endforeach
                     </select>
                     @error('userid')

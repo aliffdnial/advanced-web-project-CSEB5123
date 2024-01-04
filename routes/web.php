@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\UserController;
+use App\Models\Developer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DeveloperController;
 use App\Http\Controllers\BusinessUnitController;
 use App\Http\Controllers\ITMS\ProjectController;
 
@@ -34,5 +36,6 @@ Route::group(['prefix' => '/app', 'as' => 'app.', 'middleware' => ['auth']], fun
         Route::get('/dashboard', [App\Http\Controllers\ITMS\DashboardController::class,"dashboard"])->name('dashboard');
         // Route::resource('project', ProjectController::class)->middleware('can:isADev');
         Route::resource('project', ProjectController::class)->middleware('can:isManager');
+        Route::resource('developer', DeveloperController::class);
     });
 });

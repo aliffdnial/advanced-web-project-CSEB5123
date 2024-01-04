@@ -14,7 +14,7 @@
     </li>
     @endcan
     <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('app.itms.developer.index') }}">
             <i class="icon-head menu-icon"></i>
             <span class="menu-title">Developer</span>
         </a>

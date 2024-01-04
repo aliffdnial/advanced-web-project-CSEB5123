@@ -45,10 +45,12 @@
                                     <td>{{ date('d-m-Y', strtotime($pro->start_date)) }}</td>
                                     <td>{{ date('d-m-Y', strtotime($pro->end_date)) }}</td>
                                     <td>{{ $pro->duration }}</td>
-                                    <td>@foreach($dev as $d)
-                                        {{ $d->name }}
-                                        @endforeach</td>
-                                    <td></td>
+                                    <td>{{ $pro->user->name }}</td>
+                                    <td>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                    </td>
                                     <td>
                                         @if($pro->status == 0)
                                             <div class="badge badge-info">Ahead Of Schedule</div>

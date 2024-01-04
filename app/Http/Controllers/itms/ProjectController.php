@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\itms;
 
+use App\Models\Developer;
 use App\Models\User;
 use App\Models\Project;
 use App\Models\BusinessUnit;
@@ -36,11 +37,11 @@ class ProjectController extends Controller
     {
         $project = new Project();
         $bu = BusinessUnit::all();
-        $user = User::where('usertype', 1)->get();
-        $dev = User::where('usertype', 2)->get();
-        // $user = User::all();
+        // $user = User::where('usertype', 1)->get();
+        // $dev = User::where('usertype', 2)->get();
+        $users = User::all();
         
-        return view('itms.project_form', compact('project','bu','user','dev'));
+        return view('itms.project_form', compact('project','bu','users'));
         // return view('itms.project_form', compact('project','bu'));
     }
 
@@ -55,16 +56,23 @@ class ProjectController extends Controller
             'start_date' => 'nullable',
             'end_date' => 'nullable',
             'status' => 'nullable',
-            'lead' => 'nullable',
+            'leaddev' => 'nullable',
         ]);
 
         $duration =  $request->input('duration');
         $project = new Project();
+        // $developer = new Developer();
+        // $user = new User();
         $project->fill($request->all());
         $project->duration = $duration;
         // $project->buid = $request['buid']; //DARI TABLE BUSINESS UNIT
         $project->bunitid = $request['bunitid'];
         $project->userid = $request['userid']; //DARI TABLE USERS
+        // $developer->userid = $request['userid'];
+        // $developer->proid = $request['proid'];
+        $project->user->status = 0; //UNAVAILABLE
+        $project->user->save();
+        // Developer::where('devid', $project->devid)->update(['status'=> 0]);
         // dd($project);
         $project->save();
 
