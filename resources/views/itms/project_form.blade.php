@@ -109,6 +109,23 @@
                 </div>
                 </div>
                 <div class="col-sm">
+                <div class="form-group">
+                    <label for="dev">Developer <span style="color: red">*</span></label>
+                    <select class="form-control" name="userid">
+                        @foreach($users as $user)
+                            @if($user->usertype == 2)
+                            @if($user->status == 1)
+                                <option value="{{ $user->userid }}">{{ $user->name }}</option>
+                            @endif
+                            @endif
+                        @endforeach
+                    </select>
+                    @error('userid')
+                    <span class="text-danger">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
                 <h4 class="card-title">System Information</h4>
                 <div class="form-group">
                     <label for="methodology">System Development Methodology<span style="color: red">*</span></label>

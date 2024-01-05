@@ -9,4 +9,5 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Dashboard extends Model
 {
     use HasFactory;
+
 }

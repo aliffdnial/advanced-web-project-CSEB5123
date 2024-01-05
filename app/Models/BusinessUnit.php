@@ -28,4 +28,8 @@ class BusinessUnit extends Model
     {
         return $this->hasMany(Project::class, 'bunitid');
     }
+    public function system(): HasMany
+    {
+        return $this->hasMany(System::class, 'bunitid');
+    }
 }

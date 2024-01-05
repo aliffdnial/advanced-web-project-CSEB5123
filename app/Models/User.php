@@ -55,7 +55,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Project::class, 'userid');
     }
-
+    
     public function developer(): HasOne
     {
         return $this->hasOne(Developer::class, 'userid');
