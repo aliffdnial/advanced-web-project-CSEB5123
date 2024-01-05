@@ -49,7 +49,7 @@ class SystemController extends Controller
         $system->fill($request->all());
         $system->proid = $request['proid'];
         // $system->project->projectstatus = 0; //RELEASE
-        dd($system);
+        // dd($system);
         $system->businessUnit->status = 0; //RELEASE
         $system->businessUnit->save(); 
         $system->project->save();

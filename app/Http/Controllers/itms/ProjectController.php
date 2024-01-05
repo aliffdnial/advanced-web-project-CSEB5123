@@ -23,13 +23,14 @@ class ProjectController extends Controller
         $users = User::where('usertype', 1)->get();
         $projects = Project::all();
         $dev = User::where('usertype', 2)->get();
+        $systems = System::all();
         // $bus = BusinessUnit::all();
         // $projects = Project::where('userid', $user->id)->get();
         // $bus = BusinessUnit::where('userid', $user->id)->get();
         // dd($bus);
 
         // return view("itms.project_index", compact('projects','bus','user'));
-        return view("itms.project_index", compact('projects','users','dev'));
+        return view("itms.project_index", compact('projects','users','dev','systems'));
     }
 
     /**
@@ -62,24 +63,44 @@ class ProjectController extends Controller
             'leaddev' => 'nullable',
         ]);
 
-        $system = new System();
-        $system->fill($request->all());
-        $system->save();
+        
 
         $duration =  $request->input('duration');
         $project = new Project();
         $project->fill($request->all());
         $project->duration = $duration;
         $project->bunitid = $request['bunitid'];
-        $project->userid = $request['userid']; //DARI TABLE USERS
-        $project->businessUnit->status = 0; //RELEASE
+        // $project->userid = $request['userid']; //DARI TABLE USERS
         $project->projectstatus = 0;
-        $project->user->status = 0; //UNAVAILABLE
+
+        // UPDATE BUNIT STATUS
+        $project->businessUnit->status = 0; //RELEASE
         $project->businessUnit->save();
-        $project->user->save();
+
+        // UPDATE USER STATUS
+        // $project->user->status = 0; //UNAVAILABLE
+        // $project->user->save();
+       
         // $project->system->sysid = $request['sysid'];
-        $project->system()->associate($system);
+        // $project->system()->associate($system);
         $project->save();
+
+        $system = new System();
+        $system->fill($request->all());
+        $system->project()->associate($project);
+        $system->save();
+
+        // $project->leadDeveloper()->associate($request->input('lead_developer_id'));
+        // $project->save();
+        // $project->developers()->sync($request->input('developer_ids'));
+        // $project->save();
+
+        // $project->leadDeveloper()->associate($request->input('lead_developer_id'));
+        // $project->save();
+
+        // $project->developers()->attach($request->input('developer_ids'));
+        // $project->save();
+        // dd($request->all());
 
         return redirect()->route('app.itms.project.index');
     }

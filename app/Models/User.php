@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Project;
+use App\Models\Developer;
 use App\Models\BusinessUnit;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -11,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -51,13 +54,23 @@ class User extends Authenticatable
         return $this->hasMany(BusinessUnit::class, 'userid');
     }
 
-    public function project(): HasMany
+    // public function project(): HasMany
+    // {
+    //     return $this->hasMany(Project::class, 'userid');
+    // }
+
+    public function leadProjects(): BelongsToMany
     {
-        return $this->hasMany(Project::class, 'userid');
+        return $this->belongsToMany(Project::class, 'project_user', 'user_id', 'pro_id')->wherePivot('is_lead', true)->withTimestamps();
+    }
+
+    public function projects(): BelongsToMany
+    {
+        return $this->belongsToMany(Project::class, 'project_user', 'user_id', 'pro_id')->withPivot('is_lead')->withTimestamps();
     }
     
-    public function developer(): HasOne
-    {
-        return $this->hasOne(Developer::class, 'userid');
-    }
+    // public function developer(): HasOne
+    // {
+    //     return $this->hasOne(Developer::class, 'userid');
+    // }
 }

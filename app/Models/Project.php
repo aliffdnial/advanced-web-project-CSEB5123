@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Project extends Model
 {
@@ -16,20 +17,30 @@ class Project extends Model
 
     protected $table = 'projects';
     protected $primaryKey = 'proid';
-    protected $fillable = ['userid','bunitid','start_date','end_date','status','leaddev'];
+    protected $fillable = ['bunitid','start_date','end_date','projectstatus', 'duration'];
 
     public function businessUnit():BelongsTo
     {
         return $this->belongsTo(BusinessUnit::class,'bunitid');
     }
 
-    public function user():BelongsTo
+    // public function user():BelongsTo
+    // {
+    //     return $this->belongsTo(User::class,'userid');
+    // }
+
+    // public function system():BelongsTo
+    // {
+    //     return $this->belongsTo(System::class,'sysid');
+    // }
+
+    public function leadDeveloper():BelongsTo
     {
-        return $this->belongsTo(User::class,'userid');
+        return $this->belongsTo(User::class, 'lead_developer_id');
     }
 
-    public function system():BelongsTo
+    public function developers(): BelongsToMany
     {
-        return $this->belongsTo(System::class,'sysid');
+        return $this->belongsToMany(User::class, 'project_user')->withPivot('is_lead')->withTimestamps();
     }
 }

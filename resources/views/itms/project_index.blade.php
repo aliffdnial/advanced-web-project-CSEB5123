@@ -24,31 +24,28 @@
                         <table class="table table-striped table-borderless">
                             <thead>
                                 <tr>
-                                    <th>No</th><th>Business Unit</th><th>PIC Name</th><th>Start Date</th><th>End Date</th><th>Duration</th><th>Lead Developer</th><th>Developer</th><th>Status</th>
+                                    <th>No</th><th>Business Unit</th><th>PIC Name</th><th>Start Date</th><th>End Date</th><th>Duration</th><th>System Methodology</th><th>Platform</th><th>Deployment</th><th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @php($i = 1)
-                                @foreach($projects as $pro)
+                                @foreach($systems as $sys)
                                 <tr>
                                     <td>{{ $i++ }}</td>
-                                    <td>{{ $pro->businessUnit->user->bunit }}</td>
-                                    <td>{{ $pro->businessUnit->name }}</td>
-                                    <td>{{ date('d-m-Y', strtotime($pro->start_date)) }}</td>
-                                    <td>{{ date('d-m-Y', strtotime($pro->end_date)) }}</td>
-                                    <td>{{ $pro->duration }}</td>
-                                    <td>{{ $pro->user->name }}</td>
+                                    <td>{{ $sys->project->businessUnit->user->bunit }}</td>
+                                    <td>{{ $sys->project->businessUnit->name }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($sys->project->start_date)) }}</td>
+                                    <td>{{ date('d-m-Y', strtotime($sys->project->end_date)) }}</td>
+                                    <td>{{ $sys->project->duration }}</td>
+                                    <td>{{ $sys->methodology }}</td>
+                                    <td>{{ $sys->platform }}</td>
+                                    <td>{{ $sys->deployment }}</td>
                                     <td>
-                                        <ul>
-                                            <li></li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        @if($pro->status == 0)
+                                        @if($sys->project->status == 0)
                                             <div class="badge badge-info">Ahead Of Schedule</div>
-                                        @elseif($pro->status == 1)
+                                        @elseif($sys->project->status == 1)
                                             <div class="badge badge-primary">On Schedule</div>
-                                        @elseif($pro->status == 3)
+                                        @elseif($sys->project->status == 3)
                                             <div class="badge badge-success">Completed</div>
                                         @else
                                             <div class="badge badge-danger">Delayed</div>

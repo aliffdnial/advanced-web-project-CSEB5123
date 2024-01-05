@@ -17,11 +17,10 @@ class System extends Model
 
     public function project():BelongsTo
     {
-        return $this->belongsTo(Project::class,'sysid');
+        return $this->belongsTo(Project::class,'proid');
     }
     public function businessUnit():BelongsTo
     {
         return $this->belongsTo(BusinessUnit::class,'bunitid');
     }
-
 }
