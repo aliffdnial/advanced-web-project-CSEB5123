@@ -20,19 +20,11 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <a href="{{ route('app.itms.project.create') }}" class="btn btn-primary">Assign Project</a>
+                        <a href="{{ route('app.itms.project.create') }}" class="btn btn-primary">Assign Project & System</a>
                         <table class="table table-striped table-borderless">
                             <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>Business Unit</th>
-                                    <th>PIC Name</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
-                                    <th>Duration</th>
-                                    <th>Lead Developer</th>
-                                    <th>Developer</th>
-                                    <th>Status</th>
+                                    <th>No</th><th>Business Unit</th><th>PIC Name</th><th>Start Date</th><th>End Date</th><th>Duration</th><th>Lead Developer</th><th>Developer</th><th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,7 +32,7 @@
                                 @foreach($projects as $pro)
                                 <tr>
                                     <td>{{ $i++ }}</td>
-                                    <td>{{ $pro->user->bunit }}</td>
+                                    <td>{{ $pro->businessUnit->user->bunit }}</td>
                                     <td>{{ $pro->businessUnit->name }}</td>
                                     <td>{{ date('d-m-Y', strtotime($pro->start_date)) }}</td>
                                     <td>{{ date('d-m-Y', strtotime($pro->end_date)) }}</td>
