@@ -34,10 +34,9 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Business Unit</th>
-                                    <th>Type</th>
-                                    <th>PIC Name</th>
+                                    <th>Request Type</th>
+                                    <th>BU PIC Name</th>
                                     <th>Description</th>
-                                    <th>Status</th>
                                     <th>Created At</th>
                                 </tr>
                             </thead>
@@ -48,18 +47,8 @@
                                     <td>{{ $i++ }}</td>
                                     <td>{{ $bu->user->bunit }}</td>
                                     <td class="font-weight-bold">{{ $bu->request }}</td>
-                                    
                                     <td>{{ $bu->name }}</td>
                                     <td>{{ $bu->description }}</td>
-                                    <td>
-                                        @if($bu->status == 0)
-                                            <div class="badge badge-warning">Pending</div>
-                                        @elseif($bu->status == 1)
-                                            <div class="badge badge-success">Accepted</div>
-                                        @else
-                                            <div class="badge badge-danger">Rejected</div>
-                                        @endif
-                                    </td>
                                     <td>{{ date('d-m-Y', strtotime($bu->created_at)) }}</td>
                                 </tr>
                                 @endforeach

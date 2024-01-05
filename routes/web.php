@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SystemController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DeveloperController;
 use App\Http\Controllers\BusinessUnitController;
@@ -36,6 +37,7 @@ Route::group(['prefix' => '/app', 'as' => 'app.', 'middleware' => ['auth']], fun
         Route::get('/dashboard', [App\Http\Controllers\ITMS\DashboardController::class,"dashboard"])->name('dashboard');
         // Route::resource('project', ProjectController::class)->middleware('can:isADev');
         Route::resource('project', ProjectController::class)->middleware('can:isManager');
+        Route::resource('system', SystemController::class)->middleware('can:isManager');
         Route::resource('developer', DeveloperController::class);
     });
 });

@@ -27,7 +27,6 @@
                             <th>PIC Name</th>
                             <th>Request Type</th>
                             <th>Description</th>
-                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                         @php($i=1)
@@ -39,17 +38,8 @@
                             <td>{{ $bu->request }}</td>
                             <td>{{ $bu->description }}</td>
                             <td>
-                            @if($bu->status == 0)
-                                <span class="badge bg-warning">Under Review</a>
-                            @elseif($bu->status == 1)
-                                <span class="badge bg-success">Working in Progress</a></td>
-                            @else
-                                <span class="badge bg-danger">Rejected</a></td>
-                            @endif
-                            </td>
-                            <td>
                             @if($bu->status == 1 || $bu->status == 2) <!-- Status Solved, Rejected -->
-                            <a href="{{ route('app.bu.edit', $bu->id) }}" class="btn btn-primary btn-sm disabled" role="button" aria-disabled="true">Edit</a>
+                            <a href="{{ route('app.bu.edit', $bu->bunitid) }}" class="btn btn-primary btn-sm disabled" role="button" aria-disabled="true">Edit</a>
                             <form action="{{ route('app.bu.destroy', $bu->bunitid) }}" method="post">
                                 <input type="hidden" name="_method" value="DELETE">
                                 @csrf
