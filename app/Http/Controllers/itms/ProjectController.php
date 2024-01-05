@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\itms;
 
-use App\Models\Developer;
 use App\Models\User;
+use App\Models\System;
 use App\Models\Project;
+use App\Models\Developer;
 use App\Models\BusinessUnit;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,7 +19,8 @@ class ProjectController extends Controller
     public function index()
     {
         // $user = Auth::user();
-        $user = User::all();
+        // $users = User::all();
+        $users = User::where('usertype', 1)->get();
         $projects = Project::all();
         $dev = User::where('usertype', 2)->get();
         // $bus = BusinessUnit::all();
@@ -27,7 +29,7 @@ class ProjectController extends Controller
         // dd($bus);
 
         // return view("itms.project_index", compact('projects','bus','user'));
-        return view("itms.project_index", compact('projects','user','dev'));
+        return view("itms.project_index", compact('projects','users','dev'));
     }
 
     /**
@@ -36,12 +38,13 @@ class ProjectController extends Controller
     public function create()
     {
         $project = new Project();
+        $system = new System();
         $bu = BusinessUnit::all();
         // $user = User::where('usertype', 1)->get();
         // $dev = User::where('usertype', 2)->get();
         $users = User::all();
         
-        return view('itms.project_form', compact('project','bu','users'));
+        return view('itms.project_form', compact('project','bu','users','system'));
         // return view('itms.project_form', compact('project','bu'));
     }
 
@@ -59,21 +62,23 @@ class ProjectController extends Controller
             'leaddev' => 'nullable',
         ]);
 
+        $system = new System();
+        $system->fill($request->all());
+        $system->save();
+
         $duration =  $request->input('duration');
         $project = new Project();
-        // $developer = new Developer();
-        // $user = new User();
         $project->fill($request->all());
         $project->duration = $duration;
-        // $project->buid = $request['buid']; //DARI TABLE BUSINESS UNIT
         $project->bunitid = $request['bunitid'];
         $project->userid = $request['userid']; //DARI TABLE USERS
-        // $developer->userid = $request['userid'];
-        // $developer->proid = $request['proid'];
+        $project->businessUnit->status = 0; //RELEASE
+        $project->projectstatus = 0;
         $project->user->status = 0; //UNAVAILABLE
+        $project->businessUnit->save();
         $project->user->save();
-        // Developer::where('devid', $project->devid)->update(['status'=> 0]);
-        // dd($project);
+        // $project->system->sysid = $request['sysid'];
+        $project->system()->associate($system);
         $project->save();
 
         return redirect()->route('app.itms.project.index');
@@ -121,7 +126,6 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         $project->delete();
-        
         return redirect()->route('app.itms.project.index');
     }
 }
