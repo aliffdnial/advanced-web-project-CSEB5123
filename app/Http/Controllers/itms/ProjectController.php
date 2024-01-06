@@ -110,7 +110,10 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        $system = System::all();
+        
+        $availableDevelopers = User::where('usertype', 2)->where('status', 1)->get(); // Assuming usertype 2 is developer
+        return view('itms.project_show', compact('project','system', 'availableDevelopers'));
     }
 
     /**
@@ -148,5 +151,23 @@ class ProjectController extends Controller
     {
         $project->delete();
         return redirect()->route('app.itms.project.index');
+    }
+
+    public function attachDevelopers(Request $request, Project $project)
+    {
+        $developerIds = $request->input('developer_ids');
+        $project->developers()->attach($developerIds);
+        // User::whereIn('userid', $developerIds)->update(['status' => 0]);
+        
+        return redirect()->back();
+    }
+
+    public function detachDevelopers(Request $request, Project $project)
+    {
+        $developerIds = $request->input('developer_ids');
+        $project->developers()->detach($developerIds);
+        // User::whereIn('userid', $developerIds)->update(['status' => 1]);
+
+        return redirect()->back();
     }
 }

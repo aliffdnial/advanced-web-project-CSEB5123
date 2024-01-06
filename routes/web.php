@@ -37,6 +37,9 @@ Route::group(['prefix' => '/app', 'as' => 'app.', 'middleware' => ['auth']], fun
         Route::get('/dashboard', [App\Http\Controllers\ITMS\DashboardController::class,"dashboard"])->name('dashboard');
         // Route::resource('project', ProjectController::class)->middleware('can:isADev');
         Route::resource('project', ProjectController::class)->middleware('can:isManager');
+        Route::post('/project/attach-developers/{project}', [App\Http\Controllers\ITMS\ProjectController::class, "attachDevelopers"])->name('project.attachDevelopers');
+        Route::post('/project/detach-developers/{project}', [App\Http\Controllers\ITMS\ProjectController::class, "detachDevelopers"])->name('project.detachDevelopers');
+
         Route::resource('system', SystemController::class)->middleware('can:isManager');
         Route::resource('developer', DeveloperController::class);
     });

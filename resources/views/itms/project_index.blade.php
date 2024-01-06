@@ -51,6 +51,9 @@
                                             <div class="badge badge-danger">Delayed</div>
                                         @endif
                                     </td>
+                                    <td>
+                                        <a href="{{ route('app.itms.project.show', $sys->proid) }}" class="btn btn-info">Details</a>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

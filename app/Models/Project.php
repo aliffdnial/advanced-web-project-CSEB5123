@@ -41,6 +41,6 @@ class Project extends Model
 
     public function developers(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'project_user')->withPivot('is_lead')->withTimestamps();
+        return $this->belongsToMany(User::class, 'project_user', 'pro_id', 'user_id')->withPivot('is_lead')->withTimestamps();
     }
 }
