@@ -25,6 +25,7 @@ return new class extends Migration
             // $table->foreignId("project_proid")->constrained('projects');
             // $table->foreignId("user_userid")->constrained('users');
             $table->boolean('is_lead')->default(false); // Indicates if the user is a lead developer
+            $table->softDeletes();
             $table->timestamps();
         });
     }

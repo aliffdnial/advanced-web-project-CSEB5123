@@ -41,11 +41,12 @@ class ProjectController extends Controller
         $project = new Project();
         $system = new System();
         $bu = BusinessUnit::all();
-        // $user = User::where('usertype', 1)->get();
-        // $dev = User::where('usertype', 2)->get();
-        $users = User::all();
+        $users = User::where('usertype', 1)->get();
+        $devs = User::where('usertype', 2)->get();
+        // $users = User::all();
         
-        return view('itms.project_form', compact('project','bu','users','system'));
+        // return view('itms.project_form', compact('project','bu','users','system'));
+        return view('itms.project_form', compact('project','bu','users','devs','system'));
         // return view('itms.project_form', compact('project','bu'));
     }
 
@@ -63,15 +64,13 @@ class ProjectController extends Controller
             'leaddev' => 'nullable',
         ]);
 
-        
-
         $duration =  $request->input('duration');
         $project = new Project();
         $project->fill($request->all());
         $project->duration = $duration;
         $project->bunitid = $request['bunitid'];
-        // $project->userid = $request['userid']; //DARI TABLE USERS
-        $project->projectstatus = 0;
+        $project->userid = $request['userid']; //DARI TABLE USERS
+        // $project->projectstatus = 0;
 
         // UPDATE BUNIT STATUS
         $project->businessUnit->status = 0; //RELEASE

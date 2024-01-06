@@ -42,18 +42,6 @@
                                 <td>{{ $project->duration }}</td>
                             </tr>
                             <tr>
-                                <td>System Methodology</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Platform</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Deployment</td>
-                                <td></td>
-                            </tr>
-                            <tr>
                                 <td>Status</td>
                                 <td>
                                     @if($project->status == 0)
@@ -69,40 +57,18 @@
                             </tr>
                             <tr>
                                 <td>Lead Developer</td>
-                                <td>
-                                    <table class="table table-bordered">
-                                        @php($i=1)
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Phone Number</th>
-                                        </tr>
-                                        @if ($project->user)
-                                            @foreach($project->user as $u)
-                                            <tr>
-                                                <td>{{ $i++ }}</td>
-                                                <td>{{ $u->name }}</td>
-                                                <td>{{ $u->email }}</td>
-                                                <td>{{ $u->phonenum }}</td>
-                                            </tr>
-                                            @endforeach
-                                        @else
-                                            <p>No lead developers assigned yet.</p>
-                                        @endif
-                                    </table>
-                                </td>
+                                <td>{{ $project->user->name }}</td>
                             </tr>
                             <tr>
                                 <td>Developers</td>
                                 <td>
-                                    <table class="table table-bordered">
+                                    <table class="table table-bordered mb-4">
                                         @php($i=1)
                                         <tr>
                                             <th>No.</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone Number</th>
-                                            <th>Status of Availability</th>
                                         </tr>
                                         @if ($project->developers)
                                             @foreach($project->developers as $dev)
@@ -111,20 +77,12 @@
                                                 <td>{{ $dev->name }}</td>
                                                 <td>{{ $dev->email }}</td>
                                                 <td>{{ $dev->phonenum }}</td>
-                                                <td>
-                                                    @if ($dev->status == 0 )
-                                                        <div class="badge badge-danger">Unavailable</div>
-                                                    @else
-                                                        <div class="badge badge-success">Available</div>
-                                                    @endif
-                                                </td>
                                             </tr>
                                             @endforeach
                                         @else
                                             <p>No developers assigned yet.</p>
                                         @endif
                                     </table>
-
                                     <form method="post" action="{{ route('app.itms.project.attachDevelopers', $project) }}">
                                         @csrf
                                         <select name="developer_ids[]" class="form-select" multiple>
@@ -146,6 +104,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="text-center">
+        <a class="btn btn-warning " href="{{route('app.itms.project.index')}}">Back</a>
     </div>
 </div>
 @endsection

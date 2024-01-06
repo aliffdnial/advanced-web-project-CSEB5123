@@ -93,14 +93,14 @@
                         </div>
                         <div class="form-group">
                             <label for="leaddev">Lead Developer <span style="color: red">*</span></label>
-                            <select class="form-control" name="lead_developer_id">
-                                @foreach($users as $user)
-                                    @if($user->usertype == 2 && $user->status == 1)
-                                        <option value="{{ $user->userid }}">{{ $user->name }}</option>
+                            <select class="form-control" name="userid">
+                                @foreach($devs as $dev)
+                                    @if($dev->usertype == 2 && $dev->status == 1)
+                                        <option value="{{ $dev->userid }}">{{ $dev->name }}</option>
                                     @endif
                                 @endforeach
                             </select>
-                            @error('lead_developer_id')
+                            @error('userid')
                             <span class="text-danger">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -108,21 +108,6 @@
                         </div>
                     </div>
                 <div class="col-sm">
-                    <div class="form-group">
-                        <label for="dev">Developer <span style="color: red">*</span></label>
-                        <select class="form-control" name="developer_ids[]" multiple>
-                            @foreach($users as $user)
-                                @if($user->usertype == 2 && $user->status == 1)
-                                    <option value="{{ $user->userid }}">{{ $user->name }}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                        @error('developer_ids')
-                        <span class="text-danger">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
                     <h4 class="card-title">System Information</h4>
                     <div class="form-group">
                         <label for="methodology">System Development Methodology<span style="color: red">*</span></label>

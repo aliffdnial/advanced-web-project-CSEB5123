@@ -24,10 +24,10 @@ class Project extends Model
         return $this->belongsTo(BusinessUnit::class,'bunitid');
     }
 
-    // public function user():BelongsTo
-    // {
-    //     return $this->belongsTo(User::class,'userid');
-    // }
+    public function user():BelongsTo
+    {
+        return $this->belongsTo(User::class,'userid');
+    }
 
     // public function system():BelongsTo
     // {
