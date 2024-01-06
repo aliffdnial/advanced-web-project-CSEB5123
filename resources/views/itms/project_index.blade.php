@@ -53,6 +53,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('app.itms.project.show', $sys->proid) }}" class="btn btn-info">Details</a>
+                                        <a href="{{ route('app.itms.project.progress', $sys->proid) }}" class="btn btn-warning ">Update Progress</a>
                                     </td>
                                 </tr>
                                 @endforeach

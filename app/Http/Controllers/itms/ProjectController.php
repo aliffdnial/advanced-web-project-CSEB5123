@@ -58,10 +58,9 @@ class ProjectController extends Controller
         $this->validate($request, [
             // 'userid'=> 'required|exists:bunits,userid',
             // 'bunitid'=> 'required|exists:users,bunitid',
-            'start_date' => 'nullable',
-            'end_date' => 'nullable',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
             'status' => 'nullable',
-            'leaddev' => 'nullable',
         ]);
 
         $duration =  $request->input('duration');
@@ -168,5 +167,34 @@ class ProjectController extends Controller
         // User::whereIn('userid', $developerIds)->update(['status' => 1]);
 
         return redirect()->back();
+    }
+
+    public function progress(Project $project)
+    {
+        $system = System::all();
+        
+        return view("itms.progress_form", compact('project','system'));
+    }
+    public function progressprocess(Request $request, $project)
+    {
+        // $system = System::all();
+        // return view("itms.progress_form", compact('project','system'));
+        
+        $project = Project::findOrFail($project);
+
+        $this->validate($request, [
+            'progress_description' => 'nullable|string|max:255',
+            'progress_date'=> 'nullable|date', //10mb MAX
+        ]);
+
+        $project->fill($request->all());
+        $progress_description =  $request->input('progress_description');
+        $progress_date =  $request->input('progress_date');
+        $status =  $request->input('status');
+        $project->progress_description = $progress_description;
+        $project->progress_date = $progress_date;
+        $project->status = $status;
+        $project->save();
+        return redirect()->route('app.itms.project.index');
     }
 }

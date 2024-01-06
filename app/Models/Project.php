@@ -17,7 +17,7 @@ class Project extends Model
 
     protected $table = 'projects';
     protected $primaryKey = 'proid';
-    protected $fillable = ['bunitid','start_date','end_date','projectstatus', 'duration'];
+    protected $fillable = ['bunitid','start_date','end_date','status', 'duration','progress_date','progress_description'];
 
     public function businessUnit():BelongsTo
     {
