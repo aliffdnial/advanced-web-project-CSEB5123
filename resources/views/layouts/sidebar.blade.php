@@ -6,12 +6,23 @@
         </a>
     </li>
     
-     <li class="nav-item"><!-- APPLY USER LEVEL  -->
+    @can('isManager')
+    <li class="nav-item"><!-- APPLY USER LEVEL  -->
         <a class="nav-link" href="{{ route('app.itms.project.index') }}">
             <i class="icon-grid menu-icon"></i>
             <span class="menu-title">Project & System</span>
         </a>
     </li>
+    @endcan
+
+    @can('isADev')
+    <li class="nav-item"><!-- APPLY USER LEVEL  -->
+        <a class="nav-link" href="{{ route('app.itms.project.index') }}">
+            <i class="icon-grid menu-icon"></i>
+            <span class="menu-title">Progress</span>
+        </a>
+    </li>
+    @endcan
     
     <li class="nav-item">
         <a class="nav-link" href="{{ route('app.itms.developer.index') }}">

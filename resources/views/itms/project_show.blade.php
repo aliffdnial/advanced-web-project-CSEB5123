@@ -56,6 +56,14 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>Progress Date</td>
+                                <td>{{ date('d-m-Y', strtotime($project->progress_date )) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Progress Description</td>
+                                <td>{{ $project->progress_description }}</td>
+                            </tr>
+                            <tr>
                                 <td>Lead Developer</td>
                                 <td>{{ $project->user->name }}</td>
                             </tr>

@@ -1,7 +1,14 @@
 @extends('layouts.skydash')
 
 @section('pagetitle')
-    <title>ITMS Dashboard</title>
+@if(Auth::user()->usertype == 0) 
+    <title>ITMS Project & System</title>
+@endif
+                        
+@if(Auth::user()->usertype == 2) 
+    <title>ITMS Progress</title>
+    @endif
+{{ Auth::user()->name }}
 @endsection
 
 @section('content')
@@ -20,11 +27,13 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
+                        @can('isManager')
                         <a href="{{ route('app.itms.project.create') }}" class="btn btn-primary">Assign Project & System</a>
+                        @endcan
                         <table class="table table-striped table-borderless">
                             <thead>
                                 <tr>
-                                    <th>No</th><th>Business Unit</th><th>PIC Name</th><th>Start Date</th><th>End Date</th><th>Duration</th><th>System Methodology</th><th>Platform</th><th>Deployment</th><th>Status</th>
+                                    <th>No</th><th>Business Unit</th><th>PIC Name</th><th>Start Date</th><th>End Date</th><th>System Methodology</th><th>Platform</th><th>Deployment</th><th>Status</th><th>Progress Date</th><th>Progress Description</th><th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,7 +45,6 @@
                                     <td>{{ $sys->project->businessUnit->name }}</td>
                                     <td>{{ date('d-m-Y', strtotime($sys->project->start_date)) }}</td>
                                     <td>{{ date('d-m-Y', strtotime($sys->project->end_date)) }}</td>
-                                    <td>{{ $sys->project->duration }}</td>
                                     <td>{{ $sys->methodology }}</td>
                                     <td>{{ $sys->platform }}</td>
                                     <td>{{ $sys->deployment }}</td>
@@ -51,9 +59,15 @@
                                             <div class="badge badge-danger">Delayed</div>
                                         @endif
                                     </td>
+                                    <td>{{ date('d-m-Y', strtotime($sys->project->progress_date)) }}</td>
+                                    <td>{{ $sys->project->progress_description }}</td>
                                     <td>
+                                        @can('isManager')
                                         <a href="{{ route('app.itms.project.show', $sys->proid) }}" class="btn btn-info">Details</a>
+                                        @endcan
+                                        @can('isADev')
                                         <a href="{{ route('app.itms.project.progress', $sys->proid) }}" class="btn btn-warning ">Update Progress</a>
+                                        @endcan
                                     </td>
                                 </tr>
                                 @endforeach

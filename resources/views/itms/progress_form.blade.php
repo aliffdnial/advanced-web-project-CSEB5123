@@ -35,7 +35,7 @@
                         </div>
                         <div class="form-group">
                             <label for="progress_date">Progress Date<span style="color: red">*</span></label>
-                            <input type="date" class="form-control" id="progress_date" onchange="calcDuration(this.value)" name="progress_date" value="{{ old('progress_date', $project->progress_date) }}" min="{{ now()->format('Y-m-d') }}">
+                            <input type="date" class="form-control" id="progress_date" name="progress_date" value="{{ old('progress_date', $project->progress_date) }}" min="{{ now()->format('Y-m-d') }}">
                             @error('progress_date')
                             <span class="text-danger">
                                 <strong>{{ $message }}</strong>
