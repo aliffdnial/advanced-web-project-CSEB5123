@@ -76,8 +76,8 @@ class ProjectController extends Controller
         $project->businessUnit->save();
 
         // UPDATE USER STATUS
-        // $project->user->status = 0; //UNAVAILABLE
-        // $project->user->save();
+        $project->user->status = 0; //UNAVAILABLE
+        $project->user->save();
        
         // $project->system->sysid = $request['sysid'];
         // $project->system()->associate($system);
@@ -127,19 +127,19 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        if($request['action'] == 'approve'){
-            $project->status='1';
-            // Update lot status to 0 once booking is approved
-            // 0 = UNAVAILABLE
-            BusinessUnit::where('lotid', $project->lotid)->update(['status' => 0]);
-        }elseif( $request['action'] == 'reject'){
-            $project->status='2';
-            // Update lot status to 1 once booking is reject
-            // 1 = Available
-            BusinessUnit::where('busid', $project->id)->update(['status' => 1]);
-        }
-        $project->save();
-        return redirect()->route('app.admin.booking.index');
+        // if($request['action'] == 'approve'){
+        //     $project->status='1';
+        //     // Update lot status to 0 once booking is approved
+        //     // 0 = UNAVAILABLE
+        //     BusinessUnit::where('lotid', $project->lotid)->update(['status' => 0]);
+        // }elseif( $request['action'] == 'reject'){
+        //     $project->status='2';
+        //     // Update lot status to 1 once booking is reject
+        //     // 1 = Available
+        //     BusinessUnit::where('busid', $project->id)->update(['status' => 1]);
+        // }
+        // $project->save();
+        // return redirect()->route('app.admin.booking.index');
     }
 
     /**
@@ -194,6 +194,12 @@ class ProjectController extends Controller
         $project->progress_description = $progress_description;
         $project->progress_date = $progress_date;
         $project->status = $status;
+
+        if($status == 3){
+            $project->user->status = 1; //UNAVAILABLE
+            $project->user->save();
+        }
+        
         $project->save();
         return redirect()->route('app.itms.project.index');
     }
