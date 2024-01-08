@@ -62,12 +62,21 @@
                                     <td>{{ date('d-m-Y', strtotime($sys->project->progress_date)) }}</td>
                                     <td>{{ $sys->project->progress_description }}</td>
                                     <td>
-                                        @can('isManager')
-                                        <a href="{{ route('app.itms.project.show', $sys->proid) }}" class="btn btn-info">Details</a>
-                                        @endcan
-                                        @can('isADev')
-                                        <a href="{{ route('app.itms.project.progress', $sys->proid) }}" class="btn btn-warning ">Update Progress</a>
-                                        @endcan
+                                        @if($sys->project->status == 3)
+                                            @can('isManager')
+                                            <a href="{{ route('app.itms.project.show', $sys->proid) }}" class="btn btn-info" >Details</a>
+                                            @endcan
+                                            @can('isADev')
+                                            <a href="{{ route('app.itms.project.progress', $sys->proid) }}" class="btn btn-warning btn-sm disabled" role="button" aria-disabled="true">Update Progress</a>
+                                            @endcan
+                                        @else
+                                            @can('isManager')
+                                            <a href="{{ route('app.itms.project.show', $sys->proid) }}" class="btn btn-info">Details</a>
+                                            @endcan
+                                            @can('isADev')
+                                            <a href="{{ route('app.itms.project.progress', $sys->proid) }}" class="btn btn-warning ">Update Progress</a>
+                                            @endcan
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

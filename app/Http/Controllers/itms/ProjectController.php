@@ -77,6 +77,7 @@ class ProjectController extends Controller
 
         // UPDATE USER STATUS
         $project->user->status = 0; //UNAVAILABLE
+        // $project->user->usertype = 3; //Lead
         $project->user->save();
        
         // $project->system->sysid = $request['sysid'];
@@ -197,6 +198,7 @@ class ProjectController extends Controller
 
         if($status == 3){
             $project->user->status = 1; //UNAVAILABLE
+            // $project->user->usertype = 2; //UNAVAILABLE
             $project->user->save();
         }
         
