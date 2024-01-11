@@ -40,5 +40,6 @@ Route::group(['prefix' => '/app', 'as' => 'app.', 'middleware' => ['auth']], fun
         Route::post('/project/detach-developers/{project}', [App\Http\Controllers\ITMS\ProjectController::class, "detachDevelopers"])->name('project.detachDevelopers');
         Route::get('/project/progress/{project}', [App\Http\Controllers\ITMS\ProjectController::class,"progress"])->name('project.progress');
         Route::post('/project/progress/{project}', [App\Http\Controllers\ITMS\ProjectController::class,"progressprocess"])->name('project.progressprocess');
+        Route::resource('developer', DeveloperController::class);
     });
 });
