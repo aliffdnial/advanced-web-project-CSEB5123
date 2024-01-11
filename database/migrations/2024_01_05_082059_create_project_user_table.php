@@ -15,15 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->references('userid')->on('users');
             $table->foreignId('pro_id')->references('proid')->on('projects');
-
-            // $table->foreignId("proid")->constrained('projects');
-            // $table->foreignId("userid")->constrained('users');
-
-            // $table->foreignId("project_id")->constrained('projects');
-            // $table->foreignId("user_id")->constrained('users');
-
-            // $table->foreignId("project_proid")->constrained('projects');
-            // $table->foreignId("user_userid")->constrained('users');
             $table->boolean('is_lead')->default(false); // Indicates if the user is a lead developer
             $table->softDeletes();
             $table->timestamps();

@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('bunits', function (Blueprint $table) {
             $table->id('bunitid');
-            // $table->bigInteger('userid')->unique(); //BU01-CCI,BU02-COE,BU03-COBA,BU04-COGS
-            $table->bigInteger('userid'); //BU01-CCI,BU02-COE,BU03-COBA,BU04-COGS
+            $table->bigInteger('userid');
             $table->string('request')->nullable();
             $table->string('name')->nullable();
             $table->text('description')->nullable();

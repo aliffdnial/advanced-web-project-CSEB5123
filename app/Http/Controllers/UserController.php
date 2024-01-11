@@ -64,8 +64,6 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'bunit'=> 'required|string|max:255',
-            // 'phonenum'=> 'required|string|unique:users,phonenum',
-            // 'email'=> 'required|string|email|unique:users,email',
             'phonenum'=> 'required|string',
             'email'=> 'required|string|email',
             'password'=> 'nullable|string|min:8|confirmed', //OPTIONAL TO CHANGE PASSWORD OR MAINTAIN

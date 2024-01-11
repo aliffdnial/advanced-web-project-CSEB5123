@@ -15,13 +15,9 @@ return new class extends Migration
             $table->id('proid');
             $table->bigInteger('bunitid');
             $table->bigInteger('userid');
-            // $table->bigInteger('devid'); //DEVELOPER
-            // $table->bigInteger('sysid')->unique(); //SYSTEM DEVELOPMENT INFORMATION
-            // $table->string('owner');
             $table->date('start_date');
             $table->date('end_date');
             $table->integer('duration')->nullable();
-            // $table->string('status')->default(0); //[0]AHEAD OF SCHEDULE, [1]ON SCHEDULE, [2]DELAYED OR [3]COMPLETED
             $table->string('status')->nullable(); //[0]AHEAD OF SCHEDULE, [1]ON SCHEDULE, [2]DELAYED OR [3]COMPLETED
             $table->softDeletes();
             $table->timestamps();

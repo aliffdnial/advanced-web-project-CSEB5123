@@ -18,18 +18,11 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        // $user = Auth::user();
-        // $users = User::all();
         $users = User::where('usertype', 1)->get();
         $projects = Project::all();
         $dev = User::where('usertype', 2)->get();
         $systems = System::all();
-        // $bus = BusinessUnit::all();
-        // $projects = Project::where('userid', $user->id)->get();
-        // $bus = BusinessUnit::where('userid', $user->id)->get();
-        // dd($bus);
 
-        // return view("itms.project_index", compact('projects','bus','user'));
         return view("itms.project_index", compact('projects','users','dev','systems'));
     }
 
@@ -43,11 +36,8 @@ class ProjectController extends Controller
         $bu = BusinessUnit::all();
         $users = User::where('usertype', 1)->get();
         $devs = User::where('usertype', 2)->get();
-        // $users = User::all();
-        
-        // return view('itms.project_form', compact('project','bu','users','system'));
+       
         return view('itms.project_form', compact('project','bu','users','devs','system'));
-        // return view('itms.project_form', compact('project','bu'));
     }
 
     /**
@@ -56,8 +46,6 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            // 'userid'=> 'required|exists:bunits,userid',
-            // 'bunitid'=> 'required|exists:users,bunitid',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date',
             'status' => 'nullable',
@@ -69,7 +57,6 @@ class ProjectController extends Controller
         $project->duration = $duration;
         $project->bunitid = $request['bunitid'];
         $project->userid = $request['userid']; //DARI TABLE USERS
-        // $project->projectstatus = 0;
 
         // UPDATE BUNIT STATUS
         $project->businessUnit->status = 0; //RELEASE
@@ -77,30 +64,13 @@ class ProjectController extends Controller
 
         // UPDATE USER STATUS
         $project->user->status = 0; //UNAVAILABLE
-        // $project->user->usertype = 3; //Lead Developer
-        // $project->user->usertype = 3; //Lead
         $project->user->save();
-       
-        // $project->system->sysid = $request['sysid'];
-        // $project->system()->associate($system);
         $project->save();
 
         $system = new System();
         $system->fill($request->all());
         $system->project()->associate($project);
         $system->save();
-
-        // $project->leadDeveloper()->associate($request->input('lead_developer_id'));
-        // $project->save();
-        // $project->developers()->sync($request->input('developer_ids'));
-        // $project->save();
-
-        // $project->leadDeveloper()->associate($request->input('lead_developer_id'));
-        // $project->save();
-
-        // $project->developers()->attach($request->input('developer_ids'));
-        // $project->save();
-        // dd($request->all());
 
         return redirect()->route('app.itms.project.index');
     }
@@ -129,19 +99,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        // if($request['action'] == 'approve'){
-        //     $project->status='1';
-        //     // Update lot status to 0 once booking is approved
-        //     // 0 = UNAVAILABLE
-        //     BusinessUnit::where('lotid', $project->lotid)->update(['status' => 0]);
-        // }elseif( $request['action'] == 'reject'){
-        //     $project->status='2';
-        //     // Update lot status to 1 once booking is reject
-        //     // 1 = Available
-        //     BusinessUnit::where('busid', $project->id)->update(['status' => 1]);
-        // }
-        // $project->save();
-        // return redirect()->route('app.admin.booking.index');
+        
     }
 
     /**
@@ -169,13 +127,23 @@ class ProjectController extends Controller
         // User::whereIn('userid', $developerIds)->update(['status' => 1]);
 
         return redirect()->back();
+
+        // $developerIds = $request->input('developer_ids');
+
+        // // Check if developerIds is not null or empty
+        // if (!empty($developerIds)) {
+        //     // Update the status of detached developers
+        //     User::whereIn('userid', $developerIds)->update(['status' => 1]);
+        // }
+    
+        // // Detach developers
+        // $project->developers()->detach($developerIds);
+    
+        // return redirect()->back();
     }
 
     public function progress(Project $project)
     {
-        // $system = System::all();
-        
-        // return view("itms.progress_form", compact('project','system'));
         if (auth()->user()->userid == $project->user->userid) {
             $system = System::all();
             return view("itms.progress_form", compact('project', 'system'));
@@ -186,9 +154,6 @@ class ProjectController extends Controller
     }
     public function progressprocess(Request $request, $project)
     {
-        // $system = System::all();
-        // return view("itms.progress_form", compact('project','system'));
-        
         $project = Project::findOrFail($project);
 
         $this->validate($request, [
@@ -206,7 +171,6 @@ class ProjectController extends Controller
 
         if($status == 3){
             $project->user->status = 1; //UNAVAILABLE
-            // $project->user->usertype = 2; //Came back to developer
             $project->user->save();
         }
         
