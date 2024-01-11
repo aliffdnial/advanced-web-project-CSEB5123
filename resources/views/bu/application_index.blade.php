@@ -38,7 +38,7 @@
                             <td>{{ $bu->request }}</td>
                             <td>{{ $bu->description }}</td>
                             <td>
-                            @if($bu->status == 1 || $bu->status == 2) <!-- Status Solved, Rejected -->
+                            @if($bu->status == 0) <!-- Status Solved, Rejected -->
                             <a href="{{ route('app.bu.edit', $bu->bunitid) }}" class="btn btn-primary btn-sm disabled" role="button" aria-disabled="true">Edit</a>
                             <form action="{{ route('app.bu.destroy', $bu->bunitid) }}" method="post">
                                 <input type="hidden" name="_method" value="DELETE">

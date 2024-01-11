@@ -59,7 +59,13 @@
                                             <div class="badge badge-danger">Delayed</div>
                                         @endif
                                     </td>
-                                    <td>{{ date('d-m-Y', strtotime($sys->project->progress_date)) }}</td>
+                                    <td>
+                                        @if($sys->project->progress_date)
+                                            {{ date('d-m-Y', strtotime($sys->project->progress_date)) }}
+                                        @else
+                                            No progress date yet
+                                        @endif
+                                    </td>
                                     <td>{{ $sys->project->progress_description }}</td>
                                     <td>
                                         @if($sys->project->status == 3)
@@ -67,14 +73,14 @@
                                             <a href="{{ route('app.itms.project.show', $sys->proid) }}" class="btn btn-info" >Details</a>
                                             @endcan
                                             @can('isADev')
-                                            <a href="{{ route('app.itms.project.progress', $sys->proid) }}" class="btn btn-warning btn-sm disabled" role="button" aria-disabled="true">Update Progress</a>
+                                                <a href="{{ route('app.itms.project.progress', $sys->proid) }}" class="btn btn-warning btn-sm disabled" role="button" aria-disabled="true">Update Progress</a>
                                             @endcan
                                         @else
                                             @can('isManager')
                                             <a href="{{ route('app.itms.project.show', $sys->proid) }}" class="btn btn-info">Details</a>
                                             @endcan
                                             @can('isADev')
-                                            <a href="{{ route('app.itms.project.progress', $sys->proid) }}" class="btn btn-warning ">Update Progress</a>
+                                                <a href="{{ route('app.itms.project.progress', $sys->proid) }}" class="btn btn-warning {{ auth()->user()->userid != $sys->project->user->userid ? 'disabled' : '' }}">Update Progress</a>
                                             @endcan
                                         @endif
                                     </td>

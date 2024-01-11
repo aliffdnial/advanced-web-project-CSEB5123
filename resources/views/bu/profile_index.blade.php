@@ -30,10 +30,10 @@
                             <td>{{ date('d-m-Y', strtotime($profile->created_at)) }}</td>
                             <td>{{ $profile->name }}</td>
                             <td>{{ $profile->phonenum }}</td>
-                            <td>{{ $profile->businessunit }}</td>
+                            <td>{{ $profile->bunit }}</td>
                             <td>
-                            <a href="{{ route('app.profile.edit', $profile->id) }}" class="btn btn-primary btn-sm">Edit</a>
-                            <form action="{{ route('app.profile.destroy', $profile->id) }}" method="post">
+                            <a href="{{ route('app.profile.edit', $profile->userid) }}" class="btn btn-primary btn-sm">Edit</a>
+                            <form action="{{ route('app.profile.destroy', $profile->userid) }}" method="post">
                                 <input type="hidden" name="_method" value="DELETE">
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>

@@ -77,6 +77,7 @@ class ProjectController extends Controller
 
         // UPDATE USER STATUS
         $project->user->status = 0; //UNAVAILABLE
+        // $project->user->usertype = 3; //Lead Developer
         // $project->user->usertype = 3; //Lead
         $project->user->save();
        
@@ -172,9 +173,16 @@ class ProjectController extends Controller
 
     public function progress(Project $project)
     {
-        $system = System::all();
+        // $system = System::all();
         
-        return view("itms.progress_form", compact('project','system'));
+        // return view("itms.progress_form", compact('project','system'));
+        if (auth()->user()->userid == $project->user->userid) {
+            $system = System::all();
+            return view("itms.progress_form", compact('project', 'system'));
+        } else {
+            // If not the lead developer, redirect or display an error
+            return redirect()->route('app.itms.project.index')->withErrors('error', 'You do not have permission to update progress.');
+        }
     }
     public function progressprocess(Request $request, $project)
     {
@@ -198,7 +206,7 @@ class ProjectController extends Controller
 
         if($status == 3){
             $project->user->status = 1; //UNAVAILABLE
-            // $project->user->usertype = 2; //UNAVAILABLE
+            // $project->user->usertype = 2; //Came back to developer
             $project->user->save();
         }
         
