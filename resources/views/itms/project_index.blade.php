@@ -33,7 +33,7 @@
                         <table class="table table-striped table-borderless">
                             <thead>
                                 <tr>
-                                    <th>No</th><th>Business Unit</th><th>PIC Name</th><th>Start Date</th><th>End Date</th><th>System Methodology</th><th>Platform</th><th>Deployment</th><th>Status</th><th>Progress Date</th><th>Progress Description</th><th>Action</th>
+                                    <th>No</th><th>Business Unit</th><th>PIC Name</th><th>Start Date</th><th>End Date</th><th>Lead Developer</th><th>System Methodology</th><th>Platform</th><th>Deployment</th><th>Status</th><th>Progress Date</th><th>Progress Description</th><th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,6 +45,7 @@
                                     <td>{{ $sys->project->businessUnit->name }}</td>
                                     <td>{{ date('d-m-Y', strtotime($sys->project->start_date)) }}</td>
                                     <td>{{ date('d-m-Y', strtotime($sys->project->end_date)) }}</td>
+                                    <td>{{ $sys->project->user->name }}</td>
                                     <td>{{ $sys->methodology }}</td>
                                     <td>{{ $sys->platform }}</td>
                                     <td>{{ $sys->deployment }}</td>
@@ -66,21 +67,27 @@
                                             No progress date yet
                                         @endif
                                     </td>
-                                    <td>{{ $sys->project->progress_description }}</td>
+                                    <td>
+                                        @if($sys->project->progress_description)
+                                            {{ $sys->project->progress_description }}
+                                        @else
+                                            No progress description yet
+                                        @endif
+                                    </td>
                                     <td>
                                         @if($sys->project->status == 3)
                                             @can('isManager')
-                                            <a href="{{ route('app.itms.project.show', $sys->proid) }}" class="btn btn-info" >Details</a>
+                                            <a href="{{ route('app.itms.project.show', $sys->proid) }}" class="btn btn-info btn-sm disabled" role="button" aria-disabled="true" >Details</a>
                                             @endcan
                                             @can('isADev')
                                                 <a href="{{ route('app.itms.project.progress', $sys->proid) }}" class="btn btn-warning btn-sm disabled" role="button" aria-disabled="true">Update Progress</a>
                                             @endcan
                                         @else
                                             @can('isManager')
-                                            <a href="{{ route('app.itms.project.show', $sys->proid) }}" class="btn btn-info">Details</a>
+                                            <a href="{{ route('app.itms.project.show', $sys->proid) }}" class="btn btn-info btn-sm">Details</a>
                                             @endcan
                                             @can('isADev')
-                                                <a href="{{ route('app.itms.project.progress', $sys->proid) }}" class="btn btn-warning {{ auth()->user()->userid != $sys->project->user->userid ? 'disabled' : '' }}">Update Progress</a>
+                                                <a href="{{ route('app.itms.project.progress', $sys->proid) }}" class="btn btn-warning btn-sm {{ auth()->user()->userid != $sys->project->user->userid ? 'disabled' : '' }}">Update Progress</a>
                                             @endcan
                                         @endif
                                     </td>

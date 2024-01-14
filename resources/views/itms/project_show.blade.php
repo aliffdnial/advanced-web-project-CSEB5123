@@ -57,11 +57,23 @@
                             </tr>
                             <tr>
                                 <td>Progress Date</td>
-                                <td>{{ date('d-m-Y', strtotime($project->progress_date )) }}</td>
+                                <td>
+                                    @if($project->progress_date)
+                                        {{ date('d-m-Y', strtotime($project->progress_date )) }}
+                                    @else
+                                        No progress date yet
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td>Progress Description</td>
-                                <td>{{ $project->progress_description }}</td>
+                                <td>
+                                    @if($project->progress_description)
+                                        {{ $project->progress_description }}
+                                    @else
+                                        No progress description yet
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td>Lead Developer</td>

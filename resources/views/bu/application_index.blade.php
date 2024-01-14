@@ -39,14 +39,14 @@
                             <td>{{ $bu->description }}</td>
                             <td>
                             @if($bu->status == 0) <!-- Status Solved, Rejected -->
-                            <a href="{{ route('app.bu.edit', $bu->bunitid) }}" class="btn btn-primary btn-sm disabled" role="button" aria-disabled="true">Edit</a>
+                            <a href="{{ route('app.bu.edit', $bu->bunitid) }}" class="btn btn-info btn-sm disabled" role="button" aria-disabled="true">Edit</a>
                             <form action="{{ route('app.bu.destroy', $bu->bunitid) }}" method="post">
                                 <input type="hidden" name="_method" value="DELETE">
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                             </form>
                             @else
-                            <a href="{{ route('app.bu.edit', $bu->bunitid) }}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="{{ route('app.bu.edit', $bu->bunitid) }}" class="btn btn-info btn-sm">Edit</a>
                             <form action="{{ route('app.bu.destroy', $bu->bunitid) }}" method="post">
                                 <input type="hidden" name="_method" value="DELETE">
                                 @csrf
